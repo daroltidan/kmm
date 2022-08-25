@@ -1,7 +1,10 @@
+import src.main.java.Deps
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    kotlin("plugin.serialization") version "1.6.21"
 }
 
 version = "1.0"
@@ -21,15 +24,34 @@ kotlin {
             baseName = "shared"
         }
     }
-    
+
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                with(Deps.Koin) {
+                    api(core)
+                }
+
+                with(Deps.ktor) {
+                    implementation(core)
+                    implementation(contentNegociation)
+                    implementation(serialization)
+                }
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.3")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                with(Deps.ktor) {
+                    implementation(android)
+                }
+            }
+        }
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -39,6 +61,11 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                with(Deps.ktor) {
+                    implementation(ios)
+                }
+            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
@@ -58,5 +85,11 @@ android {
     defaultConfig {
         minSdk = 28
         targetSdk = 32
+    }
+}
+
+kotlin.targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java) {
+    binaries.all {
+        binaryOptions["memoryModel"] = "experimental"
     }
 }
