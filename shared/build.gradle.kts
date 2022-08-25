@@ -4,7 +4,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    kotlin("plugin.serialization") version "1.6.21"
+    kotlin("plugin.serialization")
 }
 
 version = "1.0"
@@ -32,12 +32,15 @@ kotlin {
                     api(core)
                 }
 
-                with(Deps.ktor) {
+                with(Deps.Data.ktor) {
                     implementation(core)
+                    implementation(logging)
                     implementation(contentNegociation)
                     implementation(serialization)
                 }
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.3")
+                implementation(Deps.Data.coroutines)
+                implementation(Deps.Data.serialization)
+                implementation(Deps.Core.logger)
             }
         }
         val commonTest by getting {
@@ -47,9 +50,10 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                with(Deps.ktor) {
-                    implementation(android)
+                with(Deps.Data.ktor) {
+                    implementation(okhttp)
                 }
+                implementation(Deps.UI.viewmodel)
             }
         }
         val androidTest by getting
@@ -62,7 +66,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                with(Deps.ktor) {
+                with(Deps.Data.ktor) {
                     implementation(ios)
                 }
             }

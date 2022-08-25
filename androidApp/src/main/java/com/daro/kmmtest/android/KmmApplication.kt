@@ -1,20 +1,25 @@
 package com.daro.kmmtest.android
 
 import android.app.Application
-import com.daro.kmmtest.di.appModule
+import com.daro.kmmtest.di.initKoin
+import com.daro.kmmtest.ui.BreedsListViewModel
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 class KmmApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
-        startKoin {
+        initKoin(
+            appModule = module {
+                viewModel {
+                    BreedsListViewModel(getAllBreeds = get())
+                }
+            }
+        ).apply {
             androidContext(this@KmmApplication)
-            androidLogger()
-            modules(appModule())
         }
     }
 }

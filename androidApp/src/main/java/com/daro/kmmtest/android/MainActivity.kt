@@ -3,17 +3,23 @@ package com.daro.kmmtest.android
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.daro.kmmtest.Greeting
-import org.koin.android.ext.android.inject
+import androidx.lifecycle.lifecycleScope
+import com.daro.kmmtest.ui.BreedsListViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinComponent
 
-class MainActivity : AppCompatActivity() {
-    private val greeting: Greeting by inject()
+class MainActivity : AppCompatActivity(), KoinComponent {
+    private val breedsListViewModel: BreedsListViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val tv: TextView = findViewById(R.id.text_view)
-        tv.text = greeting.greeting()
+        lifecycleScope.launchWhenResumed {
+            breedsListViewModel.breedsList.collect {
+                tv.text = "breedsSizes is ${it.size}"
+            }
+        }
     }
 }
