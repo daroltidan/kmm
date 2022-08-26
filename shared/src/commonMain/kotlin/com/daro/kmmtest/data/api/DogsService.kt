@@ -1,4 +1,4 @@
-package com.daro.kmmtest.data.services
+package com.daro.kmmtest.data.api
 
 import com.daro.kmmtest.data.responses.BreedsListResponseItem
 

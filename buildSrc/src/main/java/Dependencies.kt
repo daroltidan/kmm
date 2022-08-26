@@ -3,7 +3,7 @@ package src.main.java
 object Versions {
     const val koin = "3.2.0"
     const val ktorVersion = "2.1.0"
-    const val coroutines = "1.6.1"
+    const val coroutines = "1.6.4"
     const val lifecycle = "2.4.1"
 }
 
@@ -26,7 +26,7 @@ object Deps {
                 "io.ktor:ktor-client-content-negotiation:${Versions.ktorVersion}"
             const val serialization =
                 "io.ktor:ktor-serialization-kotlinx-json:${Versions.ktorVersion}"
-            const val okhttp = "io.ktor:ktor-client-okhttp:${Versions.ktorVersion}"
+            const val android = "io.ktor:ktor-client-android:${Versions.ktorVersion}"
             const val ios = "io.ktor:ktor-client-darwin:${Versions.ktorVersion}"
         }
 

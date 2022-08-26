@@ -21,7 +21,6 @@ class BreedsListViewModel(
     }
 
     private fun getBreeds() {
-        // TODO: add logger in exception handler
         scope.launch(
             context = CoroutineExceptionHandler { _, throwable ->
                 Napier.e(throwable = throwable, message = "failed to retrieve breeds")

@@ -8,7 +8,9 @@ fun initKoin(appModule: Module): KoinApplication {
     val koinApplication = startKoin {
         modules(
             appModule,
-            dataModule
+            dataModule,
+            platformModule,
+            useCasesModule
         )
     }
 

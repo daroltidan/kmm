@@ -51,7 +51,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 with(Deps.Data.ktor) {
-                    implementation(okhttp)
+                    implementation(android)
                 }
                 implementation(Deps.UI.viewmodel)
             }
