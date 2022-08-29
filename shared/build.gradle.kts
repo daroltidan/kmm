@@ -1,10 +1,13 @@
 import src.main.java.Deps
+import src.main.java.Deps.Data.SQL
+import src.main.java.Deps.Data.ktor
 
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
     kotlin("plugin.serialization")
+    id("com.squareup.sqldelight")
 }
 
 version = "1.0"
@@ -32,11 +35,17 @@ kotlin {
                     api(core)
                 }
 
-                with(Deps.Data.ktor) {
-                    implementation(core)
-                    implementation(logging)
-                    implementation(contentNegociation)
-                    implementation(serialization)
+                with(Deps.Data) {
+                    with(ktor) {
+                        implementation(core)
+                        implementation(logging)
+                        implementation(contentNegotiation)
+                        implementation(serialization)
+                    }
+                    with(SQL) {
+                        implementation(common)
+                        implementation(coroutinesExt)
+                    }
                 }
                 implementation(Deps.Data.coroutines)
                 implementation(Deps.Data.serialization)
@@ -50,10 +59,16 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                with(Deps.Data.ktor) {
+                with(ktor) {
+                    implementation(android)
+                }
+                with(Deps.Koin) {
                     implementation(android)
                 }
                 implementation(Deps.UI.viewmodel)
+                with(SQL) {
+                    implementation(android)
+                }
             }
         }
         val androidTest by getting
@@ -66,7 +81,10 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                with(Deps.Data.ktor) {
+                with(ktor) {
+                    implementation(ios)
+                }
+                with(SQL) {
                     implementation(ios)
                 }
             }
@@ -95,5 +113,11 @@ android {
 kotlin.targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java) {
     binaries.all {
         binaryOptions["memoryModel"] = "experimental"
+    }
+}
+
+sqldelight {
+    database("KmmDatabase") {
+        packageName = "com.daro.kmmtest.db"
     }
 }

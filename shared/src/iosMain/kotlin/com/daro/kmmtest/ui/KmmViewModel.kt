@@ -9,10 +9,10 @@ actual abstract class KmmViewModel {
 
     protected actual open fun onCleared() {
         Napier.i("view model cleared")
+        scope.cancel()
     }
 
-    fun clear() {
-        onCleared()
-        scope.cancel()
+    init {
+        Napier.i("view model started from ios")
     }
 }

@@ -2,9 +2,13 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    let greet = GreetingHelper().greet()
 
+    @ObservedObject var viewModel =
+        BreedsListViewModelObservableObject(wrapped: ViewModels().getBreedsListViewModel())
+    
 	var body: some View {
-		Text(greet)
+        let breeds = viewModel.breedsList
+        let size = breeds.count
+		Text("breeds size is: \(size)")
 	}
 }

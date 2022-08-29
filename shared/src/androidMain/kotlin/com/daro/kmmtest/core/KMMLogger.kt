@@ -6,6 +6,7 @@ import io.github.aakira.napier.Napier
 actual class KMMLogger {
 
     actual fun setup() {
-        Napier.base(DebugAntilog())
+        Napier.base(DebugAntilog("Android app"))
     }
+
 }

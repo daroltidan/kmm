@@ -1,4 +1,4 @@
-package com.daro.kmmtest.data.responses
+package com.daro.kmmtest.data.remote.responses
 
 
 import kotlinx.serialization.Serializable

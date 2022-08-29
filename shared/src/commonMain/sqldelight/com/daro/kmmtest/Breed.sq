@@ -1,0 +1,13 @@
+CREATE TABLE Breed (
+id INTEGER NOT NULL PRIMARY KEY,
+name TEXT NOT NULL UNIQUE,
+image TEXT NOT NULL DEFAULT ""
+);
+
+selectAll:
+SELECT * FROM Breed;
+
+insertBreed:
+INSERT OR IGNORE INTO Breed(id,name, image)
+VALUES (?,?,?);
+
