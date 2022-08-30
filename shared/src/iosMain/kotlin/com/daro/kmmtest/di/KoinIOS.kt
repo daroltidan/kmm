@@ -1,7 +1,7 @@
 package com.daro.kmmtest.di
 
 import com.daro.kmmtest.db.KmmDatabase
-import com.daro.kmmtest.ui.BreedsListViewModel
+import com.daro.kmmtest.domain.GetAllBreeds
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import io.ktor.client.engine.darwin.*
@@ -29,12 +29,11 @@ actual val platformModule = module {
     single(named(DISPATCHER_DEFAULT)) { Dispatchers.Default }
     single { Darwin.create() }
 
-    single { BreedsListViewModel(get()) }
-    single<SqlDriver> { NativeSqliteDriver(KmmDatabase.Schema, "breeds_database") }
+    single<SqlDriver> { NativeSqliteDriver(KmmDatabase.Schema, DB_NAME) }
 
 }
 
 @Suppress("UNUSED") //used in ios client
-object ViewModels : KoinComponent {
-    fun getBreedsListViewModel() = get<BreedsListViewModel>()
+object IOSInjectables : KoinComponent {
+    fun getBreedsUseCase() = get<GetAllBreeds>()
 }

@@ -1,14 +1,28 @@
 import SwiftUI
 import shared
 
-struct ContentView: View {
+class DobgBreedsViewModel: ObservableObject {
+    @Published var breeds = [BreedDTO]()
 
-    @ObservedObject var viewModel =
-        BreedsListViewModelObservableObject(wrapped: ViewModels().getBreedsListViewModel())
     
+    private let getAllBreedsUsecase: GetAllBreeds
+    init(useCase: GetAllBreeds) {
+        self.getAllBreedsUsecase = useCase
+    }
+
+    func fetch() {
+        getAllBreedsUsecase.getAllBreedsIOS(success: { data in
+            self.breeds = data
+        })
+    }
+}
+
+struct ContentView: View {
+    @ObservedObject var vm =
+    DobgBreedsViewModel(useCase: IOSInjectables().getBreedsUseCase())
+
 	var body: some View {
-        let breeds = viewModel.breedsList
-        let size = breeds.count
-		Text("breeds size is: \(size)")
-	}
+        Text("there are : \(vm.breeds.count) dog breeds")
+            .onAppear(perform: { self.vm.fetch() })
+    }
 }
