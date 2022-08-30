@@ -4,8 +4,12 @@ object Versions {
     const val koin = "3.2.0"
     const val ktorVersion = "2.1.0"
     const val coroutines = "1.6.4"
-    const val lifecycle = "2.4.1"
+    const val lifecycle = "2.5.1"
     const val sqlDelight = "1.5.3"
+    const val composeUI = "1.1.1"
+    const val composeActivity = "1.5.0"
+    const val coil = "2.1.0"
+    const val material3 = "1.0.0-alpha14"
 }
 
 object Deps {
@@ -25,7 +29,8 @@ object Deps {
             const val common = "com.squareup.sqldelight:runtime:${Versions.sqlDelight}"
             const val android = "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
             const val ios = "com.squareup.sqldelight:native-driver:${Versions.sqlDelight}"
-            const val coroutinesExt = "com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelight}"
+            const val coroutinesExt =
+                "com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelight}"
 
         }
 
@@ -48,7 +53,19 @@ object Deps {
 
     object UI {
         const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+        const val composeUI = "androidx.compose.ui:ui:${Versions.composeUI}"
+        const val activityCompose = "androidx.activity:activity-compose:${Versions.composeActivity}"
+        const val savedState =
+            "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycle}"
+        const val composeTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.composeUI}"
+        const val material3 = "androidx.compose.material3:material3:${Versions.material3}"
+        const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
+
     }
 
+    object Debug {
+        const val composeTooling = "androidx.compose.ui:ui-tooling:${Versions.composeUI}"
+        const val composeManifest = "androidx.compose.ui:ui-test-manifest:${Versions.composeUI}"
+    }
 
 }

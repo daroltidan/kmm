@@ -22,7 +22,8 @@ struct ContentView: View {
     DobgBreedsViewModel(useCase: IOSInjectables().getBreedsUseCase())
 
 	var body: some View {
-        Text("there are : \(vm.breeds.count) dog breeds")
-            .onAppear(perform: { self.vm.fetch() })
+        List(vm.breeds, id: \.self) { breed in
+                Text(breed.name)
+        }.onAppear(perform: vm.fetch)
     }
 }

@@ -1,9 +1,14 @@
 package com.daro.kmmtest.di
 
 import com.daro.kmmtest.domain.GetAllBreeds
-import org.koin.core.module.dsl.factoryOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 internal val useCasesModule = module {
-    factoryOf(::GetAllBreeds)
+    factory {
+        GetAllBreeds(
+            repository = get(),
+            coroutineDispatcher = get(named(DISPATCHER_MAIN))
+        )
+    }
 }

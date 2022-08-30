@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import src.main.java.Deps
 
 plugins {
@@ -19,17 +20,40 @@ android {
             isMinifyEnabled = false
         }
     }
+    buildFeatures.compose = true
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0"
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
 }
 
 dependencies {
     implementation(project(":shared"))
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.appcompat:appcompat:1.5.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    with(Deps.UI) {
+        implementation(viewmodel)
+        implementation(material3)
+        implementation(composeUI)
+        implementation(activityCompose)
+        implementation(savedState)
+        implementation(coilCompose)
+        implementation(composeTooling)
+    }
     with(Deps.Koin) {
         implementation(core)
         implementation(android)
+    }
+
+    with(Deps.Debug) {
+        debugImplementation(composeTooling)
+        debugImplementation(composeManifest)
     }
 }
