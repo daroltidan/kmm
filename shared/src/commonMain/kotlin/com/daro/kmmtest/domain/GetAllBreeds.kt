@@ -12,7 +12,7 @@ class GetAllBreeds(
     suspend fun getAllBreeds(): List<BreedDTO> = repository.getAllBreeds()
 
     @Suppress("UNUSED") //used in ios
-    fun getAllBreedsIOS(success: (List<BreedDTO>) -> Unit) {
+    fun getAllBreeds(success: (List<BreedDTO>) -> Unit) {
         scope.launch {
             success(getAllBreeds())
         }
