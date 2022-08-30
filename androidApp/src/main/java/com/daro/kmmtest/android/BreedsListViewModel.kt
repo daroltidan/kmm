@@ -30,7 +30,7 @@ class BreedsListViewModel(
                 )
             }
         ) {
-            _breedsList.value = getAllBreeds()
+            _breedsList.value = getAllBreeds.getAllBreeds()
         }
     }
 }
