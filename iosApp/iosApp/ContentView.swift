@@ -2,15 +2,16 @@ import SwiftUI
 import shared
 
 class DobgBreedsViewModel: ObservableObject {
-    @Published var breeds = [BreedDTO]()    
-    private let useCase: GetAllBreeds
+    @Published var breeds = [BreedDTO]()
+
     
+    private let getAllBreedsUsecase: GetAllBreeds
     init(useCase: GetAllBreeds) {
-        self.useCase = useCase
+        self.getAllBreedsUsecase = useCase
     }
 
-    func getAllBreeds() {
-        useCase.getAllBreeds(success: { data in
+    func fetch() {
+        getAllBreedsUsecase.getAllBreeds(success: { data in
             self.breeds = data
         })
     }
@@ -22,6 +23,6 @@ struct ContentView: View {
 
 	var body: some View {
         Text("there are : \(vm.breeds.count) dog breeds")
-            .onAppear(perform: { self.vm.getAllBreeds() })
+            .onAppear(perform: { self.vm.fetch() })
     }
 }
