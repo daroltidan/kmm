@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import src.main.java.Deps
 import src.main.java.Deps.Data.SQL
 import src.main.java.Deps.Data.ktor
@@ -17,6 +18,16 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    targets.withType(KotlinNativeTarget::class.java) {
+        binaries.all {
+            binaryOptions["memoryModel"] = "experimental"
+        }
+        compilations.forEach { compilation ->
+            compilation.kotlinOptions.freeCompilerArgs += arrayOf("-linker-options", "-lsqlite3")
+        }
+    }
+
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -107,12 +118,6 @@ android {
     defaultConfig {
         minSdk = 28
         targetSdk = 32
-    }
-}
-
-kotlin.targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java) {
-    binaries.all {
-        binaryOptions["memoryModel"] = "experimental"
     }
 }
 

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.daro.kmmtest.ui.BreedsListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
 
@@ -18,7 +17,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         val tv: TextView = findViewById(R.id.text_view)
         lifecycleScope.launchWhenResumed {
             breedsListViewModel.breedsList.collect {
-                tv.text = "breedsSizes is ${it.size}"
+                tv.text = "there are: ${it.size} dog breeds"
             }
         }
     }

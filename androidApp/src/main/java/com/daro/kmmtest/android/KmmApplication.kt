@@ -4,6 +4,7 @@ import android.app.Application
 import com.daro.kmmtest.di.initKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.logger.Level
 import org.koin.dsl.module
 
@@ -13,7 +14,9 @@ class KmmApplication : Application() {
 
         initKoin(
             appModule = module {
-                // TODO: add android app specifics here
+                viewModel {
+                    BreedsListViewModel(get())
+                }
             }
         ).apply {
             androidContext(this@KmmApplication)
