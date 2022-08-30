@@ -11,7 +11,7 @@ class DobgBreedsViewModel: ObservableObject {
     }
 
     func fetch() {
-        getAllBreedsUsecase.getAllBreedsIOS(success: { data in
+        getAllBreedsUsecase.getAllBreeds(success: { data in
             self.breeds = data
         })
     }
