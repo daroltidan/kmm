@@ -22,8 +22,19 @@ struct ContentView: View {
     DobgBreedsViewModel(useCase: IOSInjectables().getBreedsUseCase())
 
 	var body: some View {
-        List(vm.breeds, id: \.self) { breed in
-                Text(breed.name)
+        NavigationView{
+            List(vm.breeds, id: \.self) { breed in
+                HStack{
+                    AsyncImage(url: URL(string: breed.image)){ image in
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView()
+                    }.frame(width: 120, height: 120)
+
+                    Text(breed.name)
+                }
+            }.navigationBarTitle(Text("Breeds"))
         }.onAppear(perform: vm.fetch)
     }
 }
+

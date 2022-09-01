@@ -30,7 +30,6 @@ actual val platformModule = module {
     single { Darwin.create() }
 
     single<SqlDriver> { NativeSqliteDriver(KmmDatabase.Schema, DB_NAME) }
-
 }
 
 @Suppress("UNUSED") //used in ios client

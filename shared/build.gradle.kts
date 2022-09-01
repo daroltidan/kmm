@@ -66,6 +66,12 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                with(Deps.Test.Common) {
+                    implementation(koinTest)
+                    implementation(kotlinTest)
+                    implementation(ktorMock)
+                    implementation(coroutinesTest)
+                }
             }
         }
         val androidMain by getting {
@@ -82,7 +88,14 @@ kotlin {
                 }
             }
         }
-        val androidTest by getting
+        val androidTest by getting {
+            with(Deps.Test.Android) {
+                dependencies {
+                    implementation(jUnit)
+                    implementation(sqlDelight)
+                }
+            }
+        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -119,6 +132,12 @@ android {
         minSdk = 28
         targetSdk = 32
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
 }
 
 sqldelight {

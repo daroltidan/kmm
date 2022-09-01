@@ -68,7 +68,6 @@ private fun provideHttpClient(httpClientEngine: HttpClientEngine) = HttpClient(h
             },
             contentType = ContentType.Application.Json
         )
-
     }
     install(Logging) {
         level = LogLevel.ALL

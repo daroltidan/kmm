@@ -46,6 +46,7 @@ dependencies {
         implementation(savedState)
         implementation(coilCompose)
         implementation(composeTooling)
+        implementation(icons)
     }
     with(Deps.Koin) {
         implementation(core)
